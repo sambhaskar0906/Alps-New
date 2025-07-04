@@ -5,6 +5,9 @@ dotenv.config({
     path: './env'
 })
 
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "Server is live on Vercel" });
+});
 
 connectDB()
     .then(() => {
