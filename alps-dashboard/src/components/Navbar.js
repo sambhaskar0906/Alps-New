@@ -37,7 +37,8 @@ const Navbar = () => {
   const isLoggedIn = !!localStorage.getItem('token');
 
   const { currentUser } = useSelector((state) => state.user);
-  const user = currentUser || {
+  const savedUser = JSON.parse(localStorage.getItem("user"));
+  const user = currentUser || savedUser || {
     fullName: 'Guest User',
     email: 'guest@example.com',
   };
