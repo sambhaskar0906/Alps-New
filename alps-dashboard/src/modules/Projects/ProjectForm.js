@@ -30,13 +30,15 @@ const ProjectForm = () => {
       description: '',
       status: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      user_id: '',
     },
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
       status: Yup.string().required('Status is required'),
       startDate: Yup.string().required('Start Date is required'),
       endDate: Yup.string().required('End Date is required'),
+      user_id: Yup.string().required('User_id  is required'),
     }),
     onSubmit: async (values) => {
       try {
@@ -91,6 +93,15 @@ const ProjectForm = () => {
             rows={3}
             value={formik.values.description}
             onChange={formik.handleChange}
+          />
+          <TextField
+            label="User_id"
+            name="user_id"
+            fullWidth
+            value={formik.values.user_id}
+            onChange={formik.handleChange}
+            error={formik.touched.user_id && Boolean(formik.errors.user_id)}
+            helperText={formik.touched.user_id && formik.errors.user_id}
           />
 
           <TextField
