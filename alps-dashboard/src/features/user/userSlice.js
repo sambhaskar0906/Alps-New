@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import BASE_URL from "../../utils/baseUrl";
+
+import axios from "../../utils/axios";
 
 
 export const createUser = createAsyncThunk(
   "user/create",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${BASE_URL}/user`, formData, {
+      const res = await axios.post(`/user`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${BASE_URL}/user/login`, credentials, {
+      const res = await axios.post(`/user/login`, credentials, {
         withCredentials: true,
       });
       localStorage.setItem("token", res.data.data.token);
@@ -39,7 +39,7 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post(`${BASE_URL}/user/logout`, {}, { withCredentials: true });
+      await axios.post(`/user/logout`, {}, { withCredentials: true });
       return true;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -52,7 +52,7 @@ export const getAllUsers = createAsyncThunk(
   "user/getAll",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${BASE_URL}/user`, { withCredentials: true });
+      const res = await axios.get(`/user`, { withCredentials: true });
       return res.data.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -64,7 +64,7 @@ export const getUserById = createAsyncThunk(
   "user/getById",
   async (user_id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/${user_id}`, {
+      const res = await axios.get(`/user/${user_id}`, {
         withCredentials: true,
       });
       return res.data.data;
@@ -78,7 +78,7 @@ export const updateUser = createAsyncThunk(
   "user/update",
   async ({ user_id, formData }, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`${BASE_URL}/user/${user_id}`, formData, {
+      const res = await axios.put(`/user/${user_id}`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -94,7 +94,7 @@ export const deleteUser = createAsyncThunk(
   "user/delete",
   async (user_id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${BASE_URL}/user/${user_id}`, { withCredentials: true });
+      await axios.delete(`/user/${user_id}`, { withCredentials: true });
       return user_id;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);

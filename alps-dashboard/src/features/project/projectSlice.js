@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import BASE_URL from '../../utils/baseUrl';
+
+import axios from '../../utils/axios';
 
 // Create Project
 export const createProject = createAsyncThunk(
   'project/create',
   async (projectData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/project/create`, projectData, {
+      const response = await axios.post(`project/create`, projectData, {
         withCredentials: true,
       });
       return response.data.data;
@@ -22,7 +22,7 @@ export const getAllProjects = createAsyncThunk(
   'project/getAll',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/project`, { withCredentials: true });
+      const response = await axios.get(`/project`, { withCredentials: true });
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -35,7 +35,7 @@ export const getProjectById = createAsyncThunk(
   'project/getById',
   async (project_id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/project/${project_id}`, {
+      const response = await axios.get(`/project/${project_id}`, {
         withCredentials: true,
       });
       return response.data.data;
@@ -50,7 +50,7 @@ export const updateProject = createAsyncThunk(
   'project/update',
   async ({ project_id, updatedData }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${BASE_URL}/project/${project_id}`, updatedData, {
+      const response = await axios.put(`/project/${project_id}`, updatedData, {
         withCredentials: true,
       });
       return response.data.data;
@@ -65,7 +65,7 @@ export const deleteProject = createAsyncThunk(
   'project/delete',
   async (project_id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${BASE_URL}/project/${project_id}`, {
+      await axios.delete(`/project/${project_id}`, {
         withCredentials: true,
       });
       return project_id;

@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import BASE_URL from '../../utils/baseUrl';
+import axios from '../../utils/axios';
 
 // Create Ticket
 export const createTicket = createAsyncThunk(
   'ticket/create',
   async (ticketData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${BASE_URL}/ticket`, ticketData, {
+      const res = await axios.post(`/ticket`, ticketData, {
         withCredentials: true,
       });
       return res.data.data;
@@ -22,7 +21,7 @@ export const getAllTickets = createAsyncThunk(
   'ticket/getAll',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${BASE_URL}/ticket/all-tickets`, {
+      const res = await axios.get(`/ticket/all-tickets`, {
         withCredentials: true,
       });
       return res.data.data;
@@ -37,7 +36,7 @@ export const getTicketById = createAsyncThunk(
   'ticket/getById',
   async (ticket_id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${BASE_URL}/ticket/${ticket_id}`, {
+      const res = await axios.get(`/ticket/${ticket_id}`, {
         withCredentials: true,
       });
       return res.data.data;
@@ -52,7 +51,7 @@ export const updateTicket = createAsyncThunk(
   'ticket/update',
   async ({ ticket_id, updatedData }, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`${BASE_URL}/ticket/${ticket_id}`, updatedData, {
+      const res = await axios.put(`/ticket/${ticket_id}`, updatedData, {
         withCredentials: true,
       });
       return res.data.data;
@@ -67,7 +66,7 @@ export const deleteTicket = createAsyncThunk(
   'ticket/delete',
   async (ticket_id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${BASE_URL}/ticket/${ticket_id}`, {
+      await axios.delete(`/ticket/${ticket_id}`, {
         withCredentials: true,
       });
       return ticket_id;
@@ -83,7 +82,7 @@ export const changeTicketStatus = createAsyncThunk(
   async ({ ticket_id, newStatus }, { rejectWithValue }) => {
     try {
       const res = await axios.patch(
-        `${BASE_URL}/ticket/status/${ticket_id}?newStatus=${newStatus}`,
+        `/ticket/status/${ticket_id}?newStatus=${newStatus}`,
         {},
         { withCredentials: true }
       );
