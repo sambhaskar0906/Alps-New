@@ -26,7 +26,10 @@ export const loginUser = createAsyncThunk(
       const res = await axios.post(`/user/login`, credentials, {
         withCredentials: true,
       });
-      localStorage.setItem("token", res.data.data.token);
+      const { token, user } = res.data.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
+      localStorage.setItem("user", JSON.stringify(user));
       return res.data.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
